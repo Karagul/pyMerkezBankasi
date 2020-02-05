@@ -25,8 +25,10 @@ specific_currency = exchange.get(date=specific_date, code='GBP')
 print(specific_currency)
 
 
-output:
+latest_currency = exchange.get_latest(code='USD')
+print(latest_currency)
 
+output:
 --------
 Date: 2020-02-05
 Code: USD
