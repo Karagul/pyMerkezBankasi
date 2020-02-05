@@ -3,6 +3,8 @@ Merkez Bankası Currencies
 
 f-strings support python3.6+
 
+Returns Python object Currency
+
 Example Usage:
 
 from currency import Exchange
@@ -26,6 +28,7 @@ print(specific_currency)
 output:
 
 --------
+Date: 2020-02-05
 Code: USD
 Unit: 1
 Name: ABD DOLARI
@@ -38,6 +41,7 @@ Cross Rate USD: None
 --------
 5.9957
 --------
+Date: 2020-02-04
 Code: EUR
 Unit: 1
 Name: EURO
@@ -50,6 +54,7 @@ Cross Rate USD: None
 --------
 6.6136
 --------
+Date: 2019-01-02
 Code: GBP
 Unit: 1
 Name: İNGİLİZ STERLİNİ
@@ -58,6 +63,18 @@ Forex Buying: 6.7643
 Forex Selling: 6.7996
 Banknote Buying: 6.7596
 Banknote Selling: 6.8098
+Cross Rate USD: None
+--------
+--------
+Date: 2020-02-05
+Code: USD
+Unit: 1
+Name: ABD DOLARI
+Currency Name: US DOLLAR
+Forex Buying: 5.976
+Forex Selling: 5.9867
+Banknote Buying: 5.9718
+Banknote Selling: 5.9957
 Cross Rate USD: None
 --------
 
