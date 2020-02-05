@@ -16,3 +16,5 @@ specific_currency = exchange.get(date=specific_date, code='GBP')
 print(specific_currency)
 
 
+latest_currency = exchange.get_latest(code='USD')
+print(latest_currency)

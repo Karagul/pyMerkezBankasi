@@ -1,11 +1,13 @@
 from xml.etree import ElementTree
 from urllib.request import urlopen
 from urllib.error import HTTPError
-from datetime import date as _date, timedelta
+from datetime import date as _date, timedelta, datetime
 
 
 class Currency:
-    def __init__(self, currency: ElementTree):
+    def __init__(self, currency: ElementTree, date):
+        self.date = date
+
         self.code = currency.get('Kod')
 
         temp = currency.find('Unit').text
@@ -31,7 +33,7 @@ class Currency:
         self.cross_rate_usd = float(cross_rate_usd) if cross_rate_usd else None
 
     def __repr__(self):
-        return f'--------\nCode: {self.code}\nUnit: {self.unit}\nName: {self.name}\nCurrency Name: {self.currency_name}\n' \
+        return f'--------\nDate: {self.date}\nCode: {self.code}\nUnit: {self.unit}\nName: {self.name}\nCurrency Name: {self.currency_name}\n' \
                f'Forex Buying: {self.forex_buying}\nForex Selling: {self.forex_selling}\nBanknote Buying:' \
                f' {self.banknote_buying}\nBanknote Selling: {self.banknote_selling}\nCross Rate USD: ' \
                f'{self.cross_rate_usd}\n--------'
@@ -60,9 +62,11 @@ class Exchange:
     def _parse_xml(xml: ElementTree, code='USD'):
         if not xml:
             return None
+
+        date = datetime.strptime(xml.attrib.get('Tarih'), '%d.%m.%Y').date()
         for currency in xml.findall('Currency'):
             if currency.get('Kod') == code:
-                return Currency(currency)
+                return Currency(currency, date)
 
     def get_today(self, code='USD'):
         xml = self._get_xml()
@@ -75,5 +79,14 @@ class Exchange:
     def get(self, date, code='USD'):
         xml = self._get_xml(date)
         return self._parse_xml(xml, code)
+
+    def get_latest(self, code='USD'):
+        xml = None
+        date = _date.today()
+        while not xml:
+            xml = self._get_xml(date)
+            date = date - timedelta(days=1)
+        return self._parse_xml(xml, code)
+
 
 
